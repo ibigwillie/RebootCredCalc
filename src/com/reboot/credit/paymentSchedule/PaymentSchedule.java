@@ -26,7 +26,6 @@ public class PaymentSchedule {
         lastPayment = (GregorianCalendar) firstPayment.clone();
         lastPayment.add(Calendar.MONTH, duration);
 
-
         switch(paymentType){
             case ANNUITY:
                 payPerPeriod = (float) ((totalAmount * (percent / (12*100))) /
@@ -42,28 +41,38 @@ public class PaymentSchedule {
         while(currPayment.compareTo(lastPayment) < 0) {
             payment = new Payment();
             payment.setDate((GregorianCalendar) currPayment.clone());
-            payment.setAmount(payPerPeriod);
 
             percentAccountingFrom = (GregorianCalendar) currPayment.clone();
             percentAccountingTo = (GregorianCalendar) currPayment.clone();
 
             percentAccountingFrom.add(Calendar.DAY_OF_MONTH, 1);
             percentAccountingTo.add(Calendar.MONTH, 1);
-//        percentAccountingTo.add(Calendar.DAY_OF_MONTH, -1);
-            System.out.println(currPayment.getTime());
-            System.out.println(percentAccountingFrom.getTime());
-            System.out.println(percentAccountingTo.getTime());
 
-            System.out.println((percentAccountingTo.getTimeInMillis() - percentAccountingFrom.getTimeInMillis())
-                    / (24 * 60 * 60 * 1000) + 1);
+//        percentAccountingTo.add(Calendar.DAY_OF_MONTH, -1);
+//            System.out.println(currPayment.getTime());
+//            System.out.println(percentAccountingFrom.getTime());
+//            System.out.println(percentAccountingTo.getTime());
+//
+//            System.out.println((percentAccountingTo.getTimeInMillis() - percentAccountingFrom.getTimeInMillis())
+//                    / (24 * 60 * 60 * 1000) + 1);
 
             percentAccounting = tempDebt * percent / 100 / currPayment.getActualMaximum(Calendar.DAY_OF_YEAR)
                     * ((percentAccountingTo.getTimeInMillis() - percentAccountingFrom.getTimeInMillis()) / (24 * 60 * 60 * 1000) + 1);
-            payment.setAmountPercent(percentAccounting);
-            payment.setAmountMainDebt(payPerPeriod - percentAccounting);
-            payment.setCurrentDebt(tempDebt);
-            payment.setRemainingDebt(tempDebt - payment.getAmountMainDebt());
 
+            payment.setAmountPercent(percentAccounting);
+
+
+            if (tempDebt < payPerPeriod){
+                payment.setAmount(tempDebt);
+                payment.setAmountMainDebt(tempDebt - percentAccounting);
+                payment.setRemainingDebt(0);
+            }
+            else {
+                payment.setAmount(payPerPeriod);
+                payment.setAmountMainDebt(payPerPeriod - percentAccounting);
+                payment.setRemainingDebt(tempDebt - payment.getAmountMainDebt());
+            }
+            payment.setCurrentDebt(tempDebt);
 
             payment.setFromDate((GregorianCalendar) percentAccountingFrom.clone());
             payment.setToDate((GregorianCalendar) percentAccountingTo.clone());
@@ -71,7 +80,9 @@ public class PaymentSchedule {
             paymentList.add(payment);
             currPayment.add(Calendar.MONTH, 1);
             tempDebt -= payment.getAmountMainDebt();
+            System.out.printf("%d\t%s\t%f\t%f\t%f\n", paymentList.size(), payment.getDate().getTime(), payment.getAmount(),
+                    payment.getAmountMainDebt(), payment.getAmountPercent());
         }
-        System.out.println(1);
+        System.out.println("");
     }
 }
