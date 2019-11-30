@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Credit credit = new Credit(1000000, 11.1F, 0, 60, PaymentType.ANNUITY,
-                new GregorianCalendar(2019, Calendar.NOVEMBER, 25), 1);
+        Credit credit = new Credit(1000000, 11.1F, 0, 60, PaymentType.DIFFERENTIAL,
+                new GregorianCalendar(2019, Calendar.NOVEMBER, 8), 1);
     }
 }

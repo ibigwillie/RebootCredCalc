@@ -6,21 +6,21 @@ import com.reboot.credit.paymentSchedule.PaymentType;
 import java.util.GregorianCalendar;
 
 public class Credit {
-    private float amount;
-    private float percent;
-    private float initialFee;
+    private double amount;
+    private double percent;
+    private double initialFee;
     private int duration;
     private PaymentType paymentType;
     private GregorianCalendar firstPayment;
     private int frequencyOfPayment;
     private PaymentSchedule paymentSchedule;
 
-    private float totalAmount;
+    private double totalAmount;
 
     public Credit() {
     }
 
-    public Credit(float amount, float percent, float initialFee, int duration, PaymentType paymentType,
+    public Credit(double amount, double percent, double initialFee, int duration, PaymentType paymentType,
                   GregorianCalendar firstPayment, int frequencyOfPayment) {
         this.amount = amount;
         this.percent = percent;
@@ -39,7 +39,7 @@ public class Credit {
                 this.firstPayment);
     }
 
-    private void getPaymentSchedule(PaymentType paymentType, float totalAmount, float percent, int duration,
+    private void getPaymentSchedule(PaymentType paymentType, double totalAmount, double percent, int duration,
                                     int frequencyOfPayment, GregorianCalendar firstPayment){
         paymentSchedule = new PaymentSchedule();
         paymentSchedule.build(paymentType, totalAmount, percent, duration, frequencyOfPayment, firstPayment);

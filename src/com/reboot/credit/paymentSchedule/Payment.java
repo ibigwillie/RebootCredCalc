@@ -5,18 +5,18 @@ import java.util.GregorianCalendar;
 
 public class Payment {
     private GregorianCalendar date;
-    private float amount;
-    private float amountMainDebt;
-    private float amountPercent;
-    private float remainingDebt;
-    private float currentDebt;
+    private double amount;
+    private double amountMainDebt;
+    private double amountPercent;
+    private double remainingDebt;
+    private double currentDebt;
     private GregorianCalendar fromDate;
     private GregorianCalendar toDate;
 
     public Payment() {
     }
 
-    public Payment(GregorianCalendar date, float amount, float amountMainDebt, float amountPercent, float remainingDebt) {
+    public Payment(GregorianCalendar date, double amount, double amountMainDebt, double amountPercent, double remainingDebt) {
         this.date = date;
         this.amount = amount;
         this.amountMainDebt = amountMainDebt;
@@ -32,35 +32,35 @@ public class Payment {
         this.date = date;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public float getAmountMainDebt() {
+    public double getAmountMainDebt() {
         return amountMainDebt;
     }
 
-    public void setAmountMainDebt(float amountMainDebt) {
+    public void setAmountMainDebt(double amountMainDebt) {
         this.amountMainDebt = amountMainDebt;
     }
 
-    public float getAmountPercent() {
+    public double getAmountPercent() {
         return amountPercent;
     }
 
-    public void setAmountPercent(float amountPercent) {
+    public void setAmountPercent(double amountPercent) {
         this.amountPercent = amountPercent;
     }
 
-    public float getRemainingDebt() {
+    public double getRemainingDebt() {
         return remainingDebt;
     }
 
-    public void setRemainingDebt(float remainingDebt) {
+    public void setRemainingDebt(double remainingDebt) {
         this.remainingDebt = remainingDebt;
     }
 
@@ -80,11 +80,11 @@ public class Payment {
         this.toDate = toDate;
     }
 
-    public float getCurrentDebt() {
+    public double getCurrentDebt() {
         return currentDebt;
     }
 
-    public void setCurrentDebt(float currentDebt) {
+    public void setCurrentDebt(double currentDebt) {
         this.currentDebt = currentDebt;
     }
 }
